@@ -10,10 +10,6 @@ public class Player : MonoBehaviour
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
-
-    void Update()
-    {
-    }
     private void FixedUpdate()
     {
         if (Keyboard.current.upArrowKey.IsPressed())
@@ -31,6 +27,26 @@ public class Player : MonoBehaviour
             float turnSpeed = -100f;
             playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);;
         }   
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+         float softLandingVelocityMagnitude = 4f;
+         if (collision2D.relativeVelocity.magnitude > softLandingVelocityMagnitude)
+         {
+             //Landed too hard.\
+             Debug.Log("Landed too hard");
+             return;
+         }
+
+         float dotVector = Vector2.Dot(Vector2.up, transform.up);
+         float minDotVector = .90f;
+         if (dotVector < minDotVector)
+         {
+             Debug.Log("Landed on a too steep angle");
+             return;
+         }
+         Debug.Log("Succesful landing");
     }
 }
 
