@@ -62,6 +62,10 @@ public class Player : MonoBehaviour
         float landingSpeedScore = (softLandingVelocityMagnitude - relativeVelocityMagnitude) * maxScoreAmountForLandingSpeed;
         Debug.Log($"LandingAngleScore {landingAngleScore}");
         Debug.Log($"LandingSpeedScore {landingSpeedScore}");
+
+        int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.GetScoreMultiplier());
+
+        Debug.Log($"Score {score}");
     }
 }
 
