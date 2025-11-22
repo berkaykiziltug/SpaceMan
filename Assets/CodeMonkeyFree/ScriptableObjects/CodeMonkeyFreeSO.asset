@@ -14,40 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.00
   subtype: lunarLanderFree
-  lastShownTimestamp: 1754680265
+  lastShownTimestamp: 1763796878
   lastUpdateResponse:
     version: 1.00
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1754764621
+  checkedLastUpdateTimestamp: 1763796878
   lastQOTDResponse:
-    questionId: 209
-    questionText: Can Color ever be null?
-    answerA: Yes, always
-    answerB: No
-    answerC: Yes, as Nullable
+    questionId: 244
+    questionText: What will happen on January 19, 2038 at 03:14:07?
+    answerA: Armagedon
+    answerB: End of Unix Time
+    answerC: Half-Life 3 release date
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1754764621
+  lastQotdTimestamp: 1763796878
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/summer2025CodeMonkeyBundle.png
-    topText: All my Courses (and Games) in one Bundle! DEEP DISCOUNT ONLY THIS SUMMER!
-    topLink: summer2025bundle
-    bottomText: Get my Code Monkey Toolkit and make games BETTER and FASTER! 50%
-      OFF right now!
-    bottomLink: toolkit
-  lastDynamicHeaderTimestamp: 1754764621
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/cmBlackFriday2025.png
+    topText: Get my BLACK FRIDAY Bundle! Available now with Live Chat!
+    topLink: blackfriday
+    bottomText: My 10+ Years of C# Knowledge in 1 Course!
+    bottomLink: csharpcourse
+  lastDynamicHeaderTimestamp: 1763796878
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1754764621
+  websiteLatestMessageTimestamp: 1763796878
   websiteLatestVideos:
     videos:
-    - youTubeId: 7xz5Xh4E_B0
-      title: I NEED your HELP!
-    - youTubeId: y-w3vnh_f4Q
-      title: Are Old Tutorials OBSOLETE?
-    - youTubeId: DaKW4kqFlao
-      title: How to LEARN new Skills on HARD MODE!
-    - youTubeId: ubBS7vTQlVo
-      title: Cooking is HARDER than Programming!
-  websiteLatestVideosTimestamp: 1754764621
+    - youTubeId: 6JDErIMOUjM
+      title: Unity INSIDE Unreal Engine?! WHAT IS GOING ON?!
+    - youTubeId: vB0ApsVWET8
+      title: The BIGGEST Unity Sale of the YEAR! (BLACK FRIDAY 95% OFF!)
+    - youTubeId: abYJvA6IchM
+      title: Avoid these Beginner C# MISTAKES! (Code Review)
+    - youTubeId: mhKXu9zPWYM
+      title: TOP 10 FREE NEW Assets NOVEMBER 2025!
+  websiteLatestVideosTimestamp: 1763796878
