@@ -7,9 +7,13 @@ public class Player : MonoBehaviour
     public event EventHandler OnUpForce;
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
-
     public event EventHandler OnBeforeForce;
+    
+    
     private Rigidbody2D playerRigidbody2D;
+    private float fuelAmount = 10f;
+    
+    
     private void Awake()
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
@@ -17,6 +21,19 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         OnBeforeForce?.Invoke(this, EventArgs.Empty);
+        Debug.Log(fuelAmount);
+        if (fuelAmount <= 0)
+        {
+            fuelAmount = 0;
+            return;
+        };
+        if (Keyboard.current.upArrowKey.isPressed ||
+            Keyboard.current.leftArrowKey.isPressed ||
+            Keyboard.current.rightArrowKey.isPressed)
+        {
+            //Pressing any key.
+            ConsumeFuel();
+        }
         if (Keyboard.current.upArrowKey.IsPressed())
         {
             float force = 700f;
@@ -74,6 +91,22 @@ public class Player : MonoBehaviour
         int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.GetScoreMultiplier());
 
         Debug.Log($"Score {score}");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        if (collider2D.gameObject.TryGetComponent(out FuelPickup fuelPickup))
+        {
+            float addFuelAmount = 10f;
+            fuelAmount += addFuelAmount;
+            fuelPickup.DestroySelf();
+        }
+    }
+
+    private void ConsumeFuel()
+    {
+        float fuelConsumptionAmount = 1f;
+        fuelAmount -= fuelConsumptionAmount * Time.deltaTime;
     }
 }
 
