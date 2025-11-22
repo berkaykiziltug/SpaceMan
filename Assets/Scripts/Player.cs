@@ -31,22 +31,37 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision2D)
     {
-         float softLandingVelocityMagnitude = 4f;
-         if (collision2D.relativeVelocity.magnitude > softLandingVelocityMagnitude)
-         {
-             //Landed too hard.\
-             Debug.Log("Landed too hard");
-             return;
-         }
+        if (!collision2D.gameObject.TryGetComponent(out LandingPad landingPad))
+        {
+            //Landed on terrain.
+            Debug.Log("Crashed on terrain");
+            return;
+        }
+        float softLandingVelocityMagnitude = 4f;
+        float relativeVelocityMagnitude = collision2D.relativeVelocity.magnitude;
+        if (relativeVelocityMagnitude > softLandingVelocityMagnitude)
+        {
+            //Landed too hard.\
+            Debug.Log("Landed too hard");
+            return;
+        }
 
-         float dotVector = Vector2.Dot(Vector2.up, transform.up);
-         float minDotVector = .90f;
-         if (dotVector < minDotVector)
-         {
-             Debug.Log("Landed on a too steep angle");
-             return;
-         }
-         Debug.Log("Succesful landing");
+        float dotVector = Vector2.Dot(Vector2.up, transform.up);
+        float minDotVector = .90f;
+        if (dotVector < minDotVector)
+        {
+            Debug.Log("Landed on a too steep angle");
+            return;
+        }
+        Debug.Log("Succesful landing");
+        float maxScoreAmountLandingAngle = 100f;
+        float scoreDotVectorMultiplier = 10f;
+        float landingAngleScore = maxScoreAmountLandingAngle - Mathf.Abs(dotVector - 1f) * scoreDotVectorMultiplier* maxScoreAmountLandingAngle;
+
+        float maxScoreAmountForLandingSpeed = 100;
+        float landingSpeedScore = (softLandingVelocityMagnitude - relativeVelocityMagnitude) * maxScoreAmountForLandingSpeed;
+        Debug.Log($"LandingAngleScore {landingAngleScore}");
+        Debug.Log($"LandingSpeedScore {landingSpeedScore}");
     }
 }
 
