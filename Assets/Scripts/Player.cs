@@ -1,27 +1,48 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
     public event EventHandler OnUpForce;
     public event EventHandler OnRightForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnBeforeForce;
-    
+
+    public event EventHandler OnCoinPickup;
+
+    public event EventHandler<OnLandedEventArgs> OnLanded;
+
+    public class OnLandedEventArgs : EventArgs
+    {
+        public int onLandedScore;
+    }
     
     private Rigidbody2D playerRigidbody2D;
-    private float fuelAmount = 10f;
+    private float fuelAmount;
+    private float fuelAmountMax = 10f;
     
     
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        fuelAmount = fuelAmountMax;
         playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
     {
         OnBeforeForce?.Invoke(this, EventArgs.Empty);
-        Debug.Log(fuelAmount);
+        // Debug.Log(fuelAmount);
         if (fuelAmount <= 0)
         {
             fuelAmount = 0;
@@ -89,6 +110,11 @@ public class Player : MonoBehaviour
         Debug.Log($"LandingSpeedScore {landingSpeedScore}");
 
         int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.GetScoreMultiplier());
+        
+        OnLanded?.Invoke(this, new OnLandedEventArgs
+        {
+            onLandedScore = score,
+        });
 
         Debug.Log($"Score {score}");
     }
@@ -99,7 +125,16 @@ public class Player : MonoBehaviour
         {
             float addFuelAmount = 10f;
             fuelAmount += addFuelAmount;
+            if (fuelAmount > fuelAmountMax)
+            {
+                fuelAmount = fuelAmountMax;
+            }
             fuelPickup.DestroySelf();
+        }
+        if (collider2D.gameObject.TryGetComponent(out CoinPickup coinPickup))
+        {
+            OnCoinPickup?.Invoke(this, EventArgs.Empty);
+            coinPickup.DestroySelf();
         }
     }
 
@@ -107,6 +142,25 @@ public class Player : MonoBehaviour
     {
         float fuelConsumptionAmount = 1f;
         fuelAmount -= fuelConsumptionAmount * Time.deltaTime;
+    }
+
+    public float GetSpeedX()
+    {
+        return playerRigidbody2D.linearVelocity.x;
+    }
+    public float GetSpeedY()
+    {
+        return playerRigidbody2D.linearVelocity.y;
+    }
+
+    public float GetFuelAmount()
+    {
+        return  fuelAmount;
+    }
+
+    public float GetFuelAmountNormalized()
+    {
+        return fuelAmount / fuelAmountMax;
     }
 }
 
