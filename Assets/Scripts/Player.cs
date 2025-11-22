@@ -1,16 +1,36 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Rigidbody2D playerRigidbody2D;
+    [SerializeField] private float moveSpeed;
+    private void Awake()
     {
-        
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+    }
+    private void FixedUpdate()
+    {
+        if (Keyboard.current.upArrowKey.IsPressed())
+        {
+            float force = 700f;
+            playerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);
+        }
+        if (Keyboard.current.leftArrowKey.IsPressed())
+        {
+            float turnSpeed = +100f;
+            playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);;
+        }
+        if (Keyboard.current.rightArrowKey.IsPressed())
+        {
+            float turnSpeed = -100f;
+            playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);;
+        }   
     }
 }
+
