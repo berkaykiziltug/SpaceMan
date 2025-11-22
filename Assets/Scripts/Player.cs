@@ -4,28 +4,36 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public event EventHandler OnUpForce;
+    public event EventHandler OnRightForce;
+    public event EventHandler OnLeftForce;
+
+    public event EventHandler OnBeforeForce;
     private Rigidbody2D playerRigidbody2D;
-    [SerializeField] private float moveSpeed;
     private void Awake()
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
     {
+        OnBeforeForce?.Invoke(this, EventArgs.Empty);
         if (Keyboard.current.upArrowKey.IsPressed())
         {
             float force = 700f;
             playerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);
+            OnUpForce?.Invoke(this, EventArgs.Empty);
         }
         if (Keyboard.current.leftArrowKey.IsPressed())
         {
             float turnSpeed = +100f;
             playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);;
+            OnLeftForce?.Invoke(this, EventArgs.Empty);
         }
         if (Keyboard.current.rightArrowKey.IsPressed())
         {
             float turnSpeed = -100f;
             playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);;
+            OnRightForce?.Invoke(this, EventArgs.Empty);
         }   
     }
 
