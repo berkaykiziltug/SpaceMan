@@ -26,7 +26,8 @@ public class StatsUI : MonoBehaviour
         speedDownArrowGameObject.SetActive(Player.Instance.GetSpeedY() < 0);
         speedLeftArrowGameObject.SetActive(Player.Instance.GetSpeedX() < 0);
         speedRightArrowGameObject.SetActive(Player.Instance.GetSpeedX() >= 0);
-        statsTextMesh.text = GameManager.Instance.GetScore() + "\n" +
+        statsTextMesh.text = GameManager.Instance.GetLevel() + "\n"+
+                             GameManager.Instance.GetScore() + "\n" +
                              Mathf.Round(GameManager.Instance.GetTime()) + "\n" +
                              Mathf.Abs(Mathf.Round(Player.Instance.GetSpeedX() * 10f)) + "\n" +
                              Mathf.Abs(Mathf.Round(Player.Instance.GetSpeedY() * 10f)) + "\n";

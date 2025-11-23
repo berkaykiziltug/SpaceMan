@@ -6,8 +6,12 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem leftThrusterParticleSystem;
     [SerializeField] private ParticleSystem middleThrusterParticleSystem;
     [SerializeField] private ParticleSystem rightThrusterParticleSystem;
+    [SerializeField] private GameObject crashExplosionVFX;
     
     private Player player;
+    
+
+   
 
     private void Awake()
     {
@@ -20,6 +24,24 @@ public class PlayerVisuals : MonoBehaviour
         SetEnabledThrusterParticleSystem(middleThrusterParticleSystem, false);
         SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, false);
         SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, false);
+    }
+
+    private void Start()
+    {
+        Player.Instance.OnLanded += PlayerOnLanded;
+    }
+    private void PlayerOnLanded(object sender, Player.OnLandedEventArgs e)
+    {
+        switch(e.landingType)
+        {
+            case Player.LandingType.TooFastLanding: 
+            case Player.LandingType.TooSteepAngle:
+            case Player.LandingType.WrongLandingArea:
+               //Crash
+               Instantiate(crashExplosionVFX, transform.position, Quaternion.identity);
+               gameObject.SetActive(false);
+                break;
+        }
     }
 
     private void PlayerOnBeforeForce(object sender, EventArgs e)
@@ -44,11 +66,6 @@ public class PlayerVisuals : MonoBehaviour
         SetEnabledThrusterParticleSystem(middleThrusterParticleSystem, true);
         SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, true);
         SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, true);
-    }
-
-    private void Start()
-    {
-      
     }
 
     private void SetEnabledThrusterParticleSystem(ParticleSystem particleSystem, bool enabled)
