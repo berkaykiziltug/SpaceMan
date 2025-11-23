@@ -12,6 +12,7 @@ public class LandedUI : MonoBehaviour
   [SerializeField] private TextMeshProUGUI nextButtonTMP;
   [SerializeField] private Button nextButton;
   [SerializeField] private MMF_Player screenShakeFeedback;
+  [SerializeField] private MMF_Player successfulLandingFeedback;
   private Action nextButtonClickAction;
 
   private void Awake()
@@ -33,6 +34,7 @@ public class LandedUI : MonoBehaviour
     if (e.landingType == Player.LandingType.Success)
     {
       titleTMP.text = "SUCCESSFUL LANDING!";
+      successfulLandingFeedback.PlayFeedbacks();
       nextButtonTMP.text = "CONTINUE";
       nextButtonClickAction = GameManager.Instance.GoToNextLevel;
     }
