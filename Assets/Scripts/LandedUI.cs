@@ -1,4 +1,5 @@
 using System;
+using MoreMountains.Feedbacks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class LandedUI : MonoBehaviour
   [SerializeField] private TextMeshProUGUI statsTMP;
   [SerializeField] private TextMeshProUGUI nextButtonTMP;
   [SerializeField] private Button nextButton;
+  [SerializeField] private MMF_Player screenShakeFeedback;
   private Action nextButtonClickAction;
 
   private void Awake()
@@ -36,6 +38,7 @@ public class LandedUI : MonoBehaviour
     }
     else
     {
+      screenShakeFeedback.PlayFeedbacks();
       titleTMP.text = "<color=#ff0000>CRASH!</color>";
       nextButtonTMP.text = "RETRY";
       nextButtonClickAction = GameManager.Instance.RetryLevel;
