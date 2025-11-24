@@ -80,9 +80,9 @@ public class Player : MonoBehaviour
         {
             default:
             case State.WaitingToStart:
-                if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.leftArrowKey.isPressed ||
-                    Keyboard.current.rightArrowKey.isPressed)
+                if (GameInput.Instance.IsUpActionPressed()||
+                    GameInput.Instance.IsLeftActionPressed() ||
+                    GameInput.Instance.IsRightActionPressed())
                 {
                     //Pressing any key.
                     ConsumeFuel();
@@ -98,21 +98,21 @@ public class Player : MonoBehaviour
                     return;
                 }
 
-                if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.leftArrowKey.isPressed ||
-                    Keyboard.current.rightArrowKey.isPressed)
+                if (GameInput.Instance.IsUpActionPressed()||
+                    GameInput.Instance.IsLeftActionPressed() ||
+                    GameInput.Instance.IsRightActionPressed())
                 {
                     ConsumeFuel();
                 }
 
-                if (Keyboard.current.upArrowKey.IsPressed())
+                if (GameInput.Instance.IsUpActionPressed())
                 {
                     float force = 700f;
                     playerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);
                     OnUpForce?.Invoke(this, EventArgs.Empty);
                 }
 
-                if (Keyboard.current.leftArrowKey.IsPressed())
+                if (GameInput.Instance.IsLeftActionPressed())
                 {
                     float turnSpeed = +100f;
                     playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
                     OnLeftForce?.Invoke(this, EventArgs.Empty);
                 }
 
-                if (Keyboard.current.rightArrowKey.IsPressed())
+                if  (GameInput.Instance.IsRightActionPressed())
                 {
                     float turnSpeed = -100f;
                     playerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);
