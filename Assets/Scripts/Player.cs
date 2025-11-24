@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public event EventHandler OnLeftForce;
     public event EventHandler OnBeforeForce;
 
+    public event EventHandler OnFuelPickup;
+
     public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
 
     public class OnStateChangedEventArgs : EventArgs
@@ -216,6 +218,7 @@ public class Player : MonoBehaviour
         if (collider2D.gameObject.TryGetComponent(out FuelPickup fuelPickup))
         {
             float addFuelAmount = 10f;
+            OnFuelPickup?.Invoke(this, EventArgs.Empty);
             fuelAmount += addFuelAmount;
             if (fuelAmount > fuelAmountMax)
             {
