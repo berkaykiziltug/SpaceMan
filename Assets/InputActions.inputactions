@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MenuAction",
+                    "type": "Button",
+                    "id": "132b30f6-add9-4e11-9ca4-121ab4508954",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -98,6 +107,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlayerLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4fa72395-4990-4178-8111-2631f497bfad",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
